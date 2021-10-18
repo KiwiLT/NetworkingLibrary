@@ -64,7 +64,7 @@ namespace BookHelper
             listeningSocket.Listen(Queue);
             bookSocket = listeningSocket.Accept();
             Console.WriteLine("Connected!");
-
+            int i = 0;
             while (true)
             {
                 var msg = new byte[1000];
@@ -85,15 +85,11 @@ namespace BookHelper
                     string title = received.Content;
 
                     //Look through all the books for a matching title
-                    BookData myBook = null;
-                    foreach(BookData book in books){
-                        if (book.Title == title){
-                            myBook = book;
-                        }
-                    }
+                    Console.WriteLine("Searching book " + title);
+                    BookData myBook = getBook(title);
                     if (myBook == null){
                         //if the book wasnt found, myBook will be null, NotFound message will be sent
-                        Console.WriteLine("Book was not found, sending back Not Found message");
+                        Console.WriteLine("Book " + title + " was not found, sending back 'Not Found' message");
                         var reply = new Message();
                         reply.Type = MessageType.NotFound;
                         reply.Content = "";
@@ -111,8 +107,23 @@ namespace BookHelper
                     }
                     
                 }
+                i++;
+                if (i > 10){
+                    break;
+                }
             }
         }
+
+        public BookData getBook(string title){
+            foreach(BookData book in books){
+                if (book.Title == title){
+                    Console.WriteLine("Found!");
+                    return book;
+                }
+            }
+            return null;
+        }
+
 
 //helper functions
         public byte[] messageToBytes(Message msg)
@@ -125,23 +136,23 @@ namespace BookHelper
             switch (msg.Type)
             {
                 case (MessageType.Hello):
-                    return "Hello" + "," + msg.Content;
+                    return "Hello" + "|" + msg.Content;
                 case (MessageType.Welcome):
-                    return "Welcome" + "," + msg.Content;
+                    return "Welcome" + "|" + msg.Content;
                 case (MessageType.BookInquiry):
-                    return "BookInquiry" + "," + msg.Content;
+                    return "BookInquiry" + "|" + msg.Content;
                 case (MessageType.UserInquiry):
-                    return "UserInquiry" + "," + msg.Content;
+                    return "UserInquiry" + "|" + msg.Content;
                 case (MessageType.BookInquiryReply):
-                    return "BookInquiryReply" + "," + msg.Content;
+                    return "BookInquiryReply" + "|" + msg.Content;
                 case (MessageType.UserInquiryReply):
-                    return "UserInquiryReply" + "," + msg.Content;
+                    return "UserInquiryReply" + "|" + msg.Content;
                 case (MessageType.EndCommunication):
-                    return "EndCommunication" + "," + msg.Content;
+                    return "EndCommunication" + "|" + msg.Content;
                 case (MessageType.Error):
-                    return "Error" + "," + msg.Content;
+                    return "Error" + "|" + msg.Content;
                 case (MessageType.NotFound):
-                    return "NotFound" + "," + msg.Content;
+                    return "NotFound" + "|" + msg.Content;
                 default:
                     return "";
             }
@@ -153,9 +164,10 @@ namespace BookHelper
         {
             var msg = new Message();
             string fullstring = Encoding.ASCII.GetString(bytes);
-            string[] subs = fullstring.Split(",");
+            string[] subs = fullstring.Split("|");
             string type = subs[0];
             string content = subs[1];
+            msg.Content = content;
             switch (type)
             {
                 case ("Hello"):

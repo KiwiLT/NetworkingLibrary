@@ -48,6 +48,9 @@ namespace UserHelper
                 this.listeningSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 listeningSocket.Bind(localEndPoint);
                 this.Queue = settings.ServerListeningQueue;
+
+                string userContent = File.ReadAllText(userFile);
+                this.users = JsonSerializer.Deserialize<List<UserData>>(userContent);
             } catch (Exception e){
                 Console.Out.WriteLine("[User Helper server Exception] {0}", e.Message);
             }
@@ -59,7 +62,7 @@ namespace UserHelper
             listeningSocket.Listen(Queue);
             userSocket = listeningSocket.Accept();
             Console.WriteLine("Connected!");
-
+            int i = 0;
             while(true)
             {
                 var msg = new byte[1000];
@@ -73,6 +76,32 @@ namespace UserHelper
                     Console.WriteLine("Closing socket...");
                     listeningSocket.Close();
                     userSocket.Close();
+                    break;
+                } else if (received.Type == MessageType.UserInquiry){
+                    Console.WriteLine("User inquiry Received!");
+                    string user_id = received.Content;
+                    UserData myUser = null;
+                    foreach(UserData user in users){
+                        if(user.User_id == user_id){
+                            myUser = user;
+                        }
+                    }
+
+                    if (myUser == null){
+                        var reply = new Message();
+                        reply.Type = MessageType.NotFound;
+                        reply.Content = null;
+                    } else {
+                        var userinquiryreply = new Message();
+                        userinquiryreply.Type = MessageType.UserInquiryReply;
+                        string userstring = JsonSerializer.Serialize<UserData>(myUser);
+                        userinquiryreply.Content = userstring;
+                        msg = messageToBytes(userinquiryreply);
+                        userSocket.Send(msg);
+                    }
+                }
+                i++;
+                if (i > 10){
                     break;
                 }
             }
@@ -88,23 +117,23 @@ namespace UserHelper
             switch (msg.Type)
             {
                 case (MessageType.Hello):
-                    return "Hello" + "," + msg.Content;
+                    return "Hello" + "|" + msg.Content;
                 case (MessageType.Welcome):
-                    return "Welcome" + "," + msg.Content;
+                    return "Welcome" + "|" + msg.Content;
                 case (MessageType.BookInquiry):
-                    return "BookInquiry" + "," + msg.Content;
+                    return "BookInquiry" + "|" + msg.Content;
                 case (MessageType.UserInquiry):
-                    return "UserInquiry" + "," + msg.Content;
+                    return "UserInquiry" + "|" + msg.Content;
                 case (MessageType.BookInquiryReply):
-                    return "BookInquiryReply" + "," + msg.Content;
+                    return "BookInquiryReply" + "|" + msg.Content;
                 case (MessageType.UserInquiryReply):
-                    return "UserInquiryReply" + "," + msg.Content;
+                    return "UserInquiryReply" + "|" + msg.Content;
                 case (MessageType.EndCommunication):
-                    return "EndCommunication" + "," + msg.Content;
+                    return "EndCommunication" + "|" + msg.Content;
                 case (MessageType.Error):
-                    return "Error" + "," + msg.Content;
+                    return "Error" + "|" + msg.Content;
                 case (MessageType.NotFound):
-                    return "NotFound" + "," + msg.Content;
+                    return "NotFound" + "|" + msg.Content;
                 default:
                     return "";
             }
@@ -116,9 +145,10 @@ namespace UserHelper
         {
             var msg = new Message();
             string fullstring = Encoding.ASCII.GetString(bytes);
-            string[] subs = fullstring.Split(",");
-            string type = subs[0];
+            string[] subs = fullstring.Split("|");
             string content = subs[1];
+            string type = subs[0];
+            msg.Content = content;
             switch (type)
             {
                 case ("Hello"):

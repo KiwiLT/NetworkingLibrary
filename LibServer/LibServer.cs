@@ -113,7 +113,7 @@ namespace LibServer
                     serverSocket.Send(msg);
                     continue;
                 }
-                
+                Console.WriteLine(hello.Content + " says hello. Sending back 'Welcome'.");
                 //send back welcome
                 var welcome = new Message();
                 welcome.Type = MessageType.Welcome;
@@ -140,6 +140,7 @@ namespace LibServer
                 BookData myBook = JsonSerializer.Deserialize<BookData>(bookinquiryreply.Content);
                 if (myBook.Status == "Available")
                 {
+                    Console.WriteLine("Book is available! No need to ask for an user.");
                     continue;
                 }
 
@@ -164,23 +165,23 @@ namespace LibServer
             switch (msg.Type)
             {
                 case (MessageType.Hello):
-                    return "Hello" + "," + msg.Content;
+                    return "Hello" + "|" + msg.Content;
                 case (MessageType.Welcome):
-                    return "Welcome" + "," + msg.Content;
+                    return "Welcome" + "|" + msg.Content;
                 case (MessageType.BookInquiry):
-                    return "BookInquiry" + "," + msg.Content;
+                    return "BookInquiry" + "|" + msg.Content;
                 case (MessageType.UserInquiry):
-                    return "UserInquiry" + "," + msg.Content;
+                    return "UserInquiry" + "|" + msg.Content;
                 case (MessageType.BookInquiryReply):
-                    return "BookInquiryReply" + "," + msg.Content;
+                    return "BookInquiryReply" + "|" + msg.Content;
                 case (MessageType.UserInquiryReply):
-                    return "UserInquiryReply" + "," + msg.Content;
+                    return "UserInquiryReply" + "|" + msg.Content;
                 case (MessageType.EndCommunication):
-                    return "EndCommunication" + "," + msg.Content;
+                    return "EndCommunication" + "|" + msg.Content;
                 case (MessageType.Error):
-                    return "Error" + "," + msg.Content;
+                    return "Error" + "|" + msg.Content;
                 case (MessageType.NotFound):
-                    return "NotFound" + "," + msg.Content;
+                    return "NotFound" + "|" + msg.Content;
                 default:
                     return "";
             }
@@ -192,9 +193,10 @@ namespace LibServer
         {
             var msg = new Message();
             string fullstring = Encoding.ASCII.GetString(bytes);
-            string[] subs = fullstring.Split(",");
-            string type = subs[0];
+            string[] subs = fullstring.Split("|");
             string content = subs[1];
+            string type = subs[0];
+            msg.Content = content;
             switch (type)
             {
                 case ("Hello"):

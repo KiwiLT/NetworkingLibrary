@@ -83,6 +83,7 @@ namespace LibClient
         /// <returns>The result of the request</returns>
         public Output start()
         {
+            Console.WriteLine(client_id + " has started");
             //initialize variables, create connection
             byte[] buffer = new byte[1000];
             byte[] msg = new byte[1000];
@@ -115,7 +116,7 @@ namespace LibClient
             //Then the client waits until he receives 'welcome' message
             int b = clientSocket.Receive(buffer);
             var welcome = BytesToMessage(buffer);
-            Console.WriteLine("welcome was received.");
+            Console.WriteLine("Welcome message was received.");
             //if the received message is error this function will return an error.
             if (welcome.Type == MessageType.Error)
             {
@@ -126,6 +127,7 @@ namespace LibClient
             }
 
             //the client will send the BookInquiry message, asking for a book by sending bookname
+            Console.WriteLine("Sending book inquiry");
             var bookinquiry = new Message();
             bookinquiry.Type = MessageType.BookInquiry;
             bookinquiry.Content = this.bookName;
@@ -152,6 +154,7 @@ namespace LibClient
             //change content of the message from jsonstring to an BookData object
             string jsonstring = bookinquiryreply.Content;
             BookData myBook = JsonSerializer.Deserialize<BookData>(jsonstring);
+            
 
             //if the book is available, status will be "Available", borrower information will be null
             if (myBook.Status == "Available")
@@ -177,6 +180,12 @@ namespace LibClient
                     result.BorrowerName = null;
                     return result;
                 }
+                if (userinquiryreply.Type == MessageType.NotFound){
+                    result.Status = "Borrowed";
+                    result.BorrowerEmail = null;
+                    result.BorrowerName = "NotFound";
+                    return result;
+                }
                 jsonstring = userinquiryreply.Content;
                 UserData myUser = JsonSerializer.Deserialize<UserData>(jsonstring);
 
@@ -200,23 +209,23 @@ namespace LibClient
             switch (msg.Type)
             {
                 case (MessageType.Hello):
-                    return "Hello" + "," + msg.Content;
+                    return "Hello" + "|" + msg.Content;
                 case (MessageType.Welcome):
-                    return "Welcome" + "," + msg.Content;
+                    return "Welcome" + "|" + msg.Content;
                 case (MessageType.BookInquiry):
-                    return "BookInquiry" + "," + msg.Content;
+                    return "BookInquiry" + "|" + msg.Content;
                 case (MessageType.UserInquiry):
-                    return "UserInquiry" + "," + msg.Content;
+                    return "UserInquiry" + "|" + msg.Content;
                 case (MessageType.BookInquiryReply):
-                    return "BookInquiryReply" + "," + msg.Content;
+                    return "BookInquiryReply" + "|" + msg.Content;
                 case (MessageType.UserInquiryReply):
-                    return "UserInquiryReply" + "," + msg.Content;
+                    return "UserInquiryReply" + "|" + msg.Content;
                 case (MessageType.EndCommunication):
-                    return "EndCommunication" + "," + msg.Content;
+                    return "EndCommunication" + "|" + msg.Content;
                 case (MessageType.Error):
-                    return "Error" + "," + msg.Content;
+                    return "Error" + "|" + msg.Content;
                 case (MessageType.NotFound):
-                    return "NotFound" + "," + msg.Content;
+                    return "NotFound" + "|" + msg.Content;
                 default:
                     return "";
             }
@@ -228,9 +237,10 @@ namespace LibClient
         {
             var msg = new Message();
             string fullstring = Encoding.ASCII.GetString(bytes);
-            string[] subs = fullstring.Split(",");
-            string type = subs[0];
+            string[] subs = fullstring.Split("|");
             string content = subs[1];
+            string type = subs[0];
+            msg.Content = content;
             switch (type)
             {
                 case ("Hello"):
