@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Text.Json;
 using System.Net;
 using System.Net.Sockets;
@@ -23,14 +24,123 @@ namespace UserHelper
     // Note: Complete the implementation of this class. You can adjust the structure of this class.
     public class SequentialHelper
     {
+        public Socket userSocket;
+        public Socket listeningSocket;
+        public IPEndPoint serverEndPoint;
+        public IPEndPoint localEndPoint;
+        public IPAddress localIP;
+        public IPAddress serverIP;
+        public Setting settings;
+        public int Queue;
+        public string configFile = @"../ClientServerConfig.json";
+        public string userFile = @"./Users.json";
+        public List<UserData> users;
         public SequentialHelper()
         {
-            //todo: implement the body. Add extra fields and methods to the class if needed
+            try
+            {
+                string configContent = File.ReadAllText(configFile);
+                this.settings = JsonSerializer.Deserialize<Setting>(configContent);
+                this.serverIP = IPAddress.Parse(settings.ServerIPAddress);
+                this.localIP = IPAddress.Parse(settings.UserHelperIPAddress);
+                this.localEndPoint = new IPEndPoint(localIP, settings.UserHelperPortNumber);
+                this.serverEndPoint = new IPEndPoint(serverIP, settings.ServerPortNumber);
+                this.listeningSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                listeningSocket.Bind(localEndPoint);
+                this.Queue = settings.ServerListeningQueue;
+            } catch (Exception e){
+                Console.Out.WriteLine("[User Helper server Exception] {0}", e.Message);
+            }
         }
 
         public void start()
         {
-            //todo: implement the body. Add extra fields and methods to the class if needed
+            Console.WriteLine("Connecting to server...");
+            listeningSocket.Listen(Queue);
+            userSocket = listeningSocket.Accept();
+            Console.WriteLine("Connected!");
+
+            while(true)
+            {
+                var msg = new byte[1000];
+                var buffer = new byte[1000];
+                Console.WriteLine("Waiting for messages from the client...");
+                userSocket.Receive(buffer);
+                var received = BytesToMessage(buffer);
+
+                if (received.Type == MessageType.EndCommunication){
+                    Console.WriteLine("End Communications message received.");
+                    Console.WriteLine("Closing socket...");
+                    listeningSocket.Close();
+                    userSocket.Close();
+                    break;
+                }
+            }
+        }
+//helper functions
+        public byte[] messageToBytes(Message msg)
+        {
+            return Encoding.ASCII.GetBytes(messageToString(msg));
+        }
+
+        public string messageToString(Message msg)
+        {
+            switch (msg.Type)
+            {
+                case (MessageType.Hello):
+                    return "Hello" + "," + msg.Content;
+                case (MessageType.Welcome):
+                    return "Welcome" + "," + msg.Content;
+                case (MessageType.BookInquiry):
+                    return "BookInquiry" + "," + msg.Content;
+                case (MessageType.UserInquiry):
+                    return "UserInquiry" + "," + msg.Content;
+                case (MessageType.BookInquiryReply):
+                    return "BookInquiryReply" + "," + msg.Content;
+                case (MessageType.UserInquiryReply):
+                    return "UserInquiryReply" + "," + msg.Content;
+                case (MessageType.EndCommunication):
+                    return "EndCommunication" + "," + msg.Content;
+                case (MessageType.Error):
+                    return "Error" + "," + msg.Content;
+                case (MessageType.NotFound):
+                    return "NotFound" + "," + msg.Content;
+                default:
+                    return "";
+            }
+
+
+        }
+
+        public Message BytesToMessage(byte[] bytes)
+        {
+            var msg = new Message();
+            string fullstring = Encoding.ASCII.GetString(bytes);
+            string[] subs = fullstring.Split(",");
+            string type = subs[0];
+            string content = subs[1];
+            switch (type)
+            {
+                case ("Hello"):
+                    msg.Type = MessageType.Hello; break;
+                case("Welcome"):
+                    msg.Type = MessageType.Welcome; break;
+                case("BookInquiry"):
+                    msg.Type = MessageType.BookInquiry; break;
+                case("UserInquiry"):
+                    msg.Type = MessageType.UserInquiry; break;
+                case("BookInquiryReply"):
+                    msg.Type = MessageType.BookInquiryReply; break;
+                case("UserInquiryReply"):
+                    msg.Type = MessageType.UserInquiryReply; break;
+                case("EndCommunication"):
+                    msg.Type = MessageType.EndCommunication; break;
+                case("Error"):
+                    msg.Type = MessageType.Error; break;
+                case("NotFound"):
+                    msg.Type = MessageType.NotFound; break;
+            }
+            return msg;
         }
     }
 }

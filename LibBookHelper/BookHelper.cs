@@ -31,7 +31,6 @@ namespace BookHelper
         public IPAddress localIP;
         public IPAddress serverIP;
         public Setting settings;
-        public string bookinfo;
         public int Queue;
         public string configFile = @"../ClientServerConfig.json";
         public string bookFile = @"./Books.json";
@@ -78,6 +77,7 @@ namespace BookHelper
                 if(received.Type == MessageType.EndCommunication){
                     Console.WriteLine("End Communication message received");
                     Console.WriteLine("Closing the socket...");
+                    listeningSocket.Close();
                     bookSocket.Close();
                     break;
                 } else if(received.Type == MessageType.BookInquiry){
