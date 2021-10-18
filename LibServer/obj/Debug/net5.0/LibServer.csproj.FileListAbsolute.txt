@@ -1,0 +1,15 @@
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/bin/Debug/net5.0/LibServer.deps.json
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/bin/Debug/net5.0/LibServer.runtimeconfig.json
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/bin/Debug/net5.0/LibServer.runtimeconfig.dev.json
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/bin/Debug/net5.0/LibServer.dll
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/bin/Debug/net5.0/ref/LibServer.dll
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/bin/Debug/net5.0/LibServer.pdb
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/obj/Debug/net5.0/LibServer.csproj.AssemblyReference.cache
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/obj/Debug/net5.0/LibServer.GeneratedMSBuildEditorConfig.editorconfig
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/obj/Debug/net5.0/LibServer.AssemblyInfoInputs.cache
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/obj/Debug/net5.0/LibServer.AssemblyInfo.cs
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/obj/Debug/net5.0/LibServer.csproj.CoreCompileInputs.cache
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/obj/Debug/net5.0/LibServer.dll
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/obj/Debug/net5.0/ref/LibServer.dll
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/obj/Debug/net5.0/LibServer.pdb
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/obj/Debug/net5.0/LibServer.genruntimeconfig.cache
