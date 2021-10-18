@@ -90,7 +90,9 @@ namespace LibClient
             //if this is the first client, create a connection
             if (client_id == "Client 0")
             {
+                Console.WriteLine("Connecting to server...");
                 clientSocket.Connect(serverEndPoint);
+                Console.WriteLine("Connected!");
             }
 
             //if this is client -1, send endcommunication message and close the socket.
@@ -113,6 +115,7 @@ namespace LibClient
             //Then the client waits until he receives 'welcome' message
             int b = clientSocket.Receive(buffer);
             var welcome = BytesToMessage(buffer);
+            Console.WriteLine("welcome was received.");
             //if the received message is error this function will return an error.
             if (welcome.Type == MessageType.Error)
             {
@@ -130,7 +133,7 @@ namespace LibClient
             clientSocket.Send(msg);
 
             //the client will wait unitl he receives the status of the book
-            buffer = null;
+            buffer = new byte[1000];
             b = clientSocket.Receive(buffer);
             var bookinquiryreply = BytesToMessage(buffer);
             if (bookinquiryreply.Type == MessageType.NotFound)

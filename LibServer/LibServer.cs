@@ -83,7 +83,7 @@ namespace LibServer
 
             while (true)
             {
-                buffer = null;
+                buffer = new byte[1000];
                 msg = null;
                 b = serverSocket.Receive(buffer);
                 var hello = BytesToMessage(buffer);
@@ -94,12 +94,15 @@ namespace LibServer
                     endcomm.Type = MessageType.EndCommunication;
                     endcomm.Content = "";
                     msg = messageToBytes(endcomm);
+                    Console.WriteLine("Closing sockets...");
                     serverSocket.Close();
                     listeningSocket.Close();
                     bookSocket.Send(msg);
                     bookSocket.Close();
                     userSocket.Send(msg);
                     userSocket.Close();
+                    Console.WriteLine("Closed! Now quitting.");
+                    break;
                 }
                 if (hello.Type != MessageType.Hello)
                 {
@@ -118,16 +121,19 @@ namespace LibServer
                 msg = messageToBytes(welcome);
                 serverSocket.Send(msg);
 
+
                 //get book inquiry and send it to the book helper server
+                buffer = new byte[1000];
                 b = serverSocket.Receive(buffer);
                 bookSocket.Send(buffer);
                 //Send the message received from the book server to the client
+                buffer = new byte[1000];
                 b = bookSocket.Receive(buffer);
                 serverSocket.Send(buffer);
                 Message bookinquiryreply = BytesToMessage(buffer);
 
                 //stop and go to the next loop if the book is not found or the book is available. otherwise wait for the userinquiry
-                if (bookinquiryreply.Type == MessageType.NotFound)
+                if (bookinquiryreply.Type == MessageType.NotFound || bookinquiryreply.Type == MessageType.Error)
                 {
                     continue;
                 }

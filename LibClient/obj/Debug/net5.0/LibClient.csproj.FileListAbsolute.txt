@@ -1,4 +1,3 @@
-/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/obj/Debug/net5.0/LibClient.csprojAssemblyReference.cache
 /Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/obj/Debug/net5.0/LibClient.GeneratedMSBuildEditorConfig.editorconfig
 /Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/obj/Debug/net5.0/LibClient.AssemblyInfoInputs.cache
 /Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/obj/Debug/net5.0/LibClient.AssemblyInfo.cs
@@ -13,3 +12,4 @@
 /Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/obj/Debug/net5.0/ref/LibClient.dll
 /Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/obj/Debug/net5.0/LibClient.pdb
 /Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/obj/Debug/net5.0/LibClient.genruntimeconfig.cache
+/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/obj/Debug/net5.0/LibClient.csproj.AssemblyReference.cache
