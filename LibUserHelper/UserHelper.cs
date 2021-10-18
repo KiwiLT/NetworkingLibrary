@@ -146,7 +146,10 @@ namespace UserHelper
             var msg = new Message();
             string fullstring = Encoding.ASCII.GetString(bytes);
             string[] subs = fullstring.Split("|");
-            string content = subs[1];
+            string content = "";
+            if (subs.Length != 1){
+                content = subs[1];
+            }
             string type = subs[0];
             msg.Content = content;
             switch (type)

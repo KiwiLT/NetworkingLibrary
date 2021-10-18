@@ -88,13 +88,10 @@ namespace LibClient
             byte[] buffer = new byte[1000];
             byte[] msg = new byte[1000];
 
-            //if this is the first client, create a connection
-            if (client_id == "Client 0")
-            {
-                Console.WriteLine("Connecting to server...");
-                clientSocket.Connect(serverEndPoint);
-                Console.WriteLine("Connected!");
-            }
+            //Create a connection with the client
+            Console.WriteLine("Connecting to server...");
+            clientSocket.Connect(serverEndPoint);
+            Console.WriteLine("Connected!");
 
             //if this is client -1, send endcommunication message and close the socket.
             if (client_id == "Client -1"){
@@ -104,9 +101,11 @@ namespace LibClient
                 msg = messageToBytes(endcomm);
                 clientSocket.Send(msg);
                 clientSocket.Close();
+                return result;
             }
 
             //Client starts with hello message
+            Console.WriteLine("Sending hello message");
             var hello = new Message();
             hello.Type = MessageType.Hello;
             hello.Content = client_id;
@@ -114,6 +113,7 @@ namespace LibClient
             clientSocket.Send(msg);
 
             //Then the client waits until he receives 'welcome' message
+            Console.WriteLine("Waiting for welcome message");
             int b = clientSocket.Receive(buffer);
             var welcome = BytesToMessage(buffer);
             Console.WriteLine("Welcome message was received.");
@@ -238,7 +238,10 @@ namespace LibClient
             var msg = new Message();
             string fullstring = Encoding.ASCII.GetString(bytes);
             string[] subs = fullstring.Split("|");
-            string content = subs[1];
+            string content = "";
+            if (subs.Length != 1){
+                content = subs[1];
+            }
             string type = subs[0];
             msg.Content = content;
             switch (type)

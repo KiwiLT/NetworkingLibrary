@@ -116,7 +116,7 @@ namespace BookHelper
 
         public BookData getBook(string title){
             foreach(BookData book in books){
-                if (book.Title == title){
+                if (book.Title.Equals(title)){
                     Console.WriteLine("Found!");
                     return book;
                 }
@@ -166,7 +166,10 @@ namespace BookHelper
             string fullstring = Encoding.ASCII.GetString(bytes);
             string[] subs = fullstring.Split("|");
             string type = subs[0];
-            string content = subs[1];
+            string content = "";
+            if (subs.Length != 1){
+                content = subs[1];
+            }
             msg.Content = content;
             switch (type)
             {

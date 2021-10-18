@@ -76,15 +76,17 @@ namespace LibServer
             userSocket.Connect(userEndPoint);
             Console.WriteLine("Connected!");
 
-            listeningSocket.Listen(Queue);
-            Console.WriteLine("\nConnecting to client...");
-            serverSocket = listeningSocket.Accept();
-            Console.WriteLine("Connected!");
 
             while (true)
             {
                 buffer = new byte[1000];
                 msg = null;
+
+                listeningSocket.Listen(Queue);
+                Console.WriteLine("\nConnecting to client...");
+                serverSocket = listeningSocket.Accept();
+                Console.WriteLine("Connected!");
+
                 b = serverSocket.Receive(buffer);
                 var hello = BytesToMessage(buffer);
 
@@ -125,16 +127,19 @@ namespace LibServer
                 //get book inquiry and send it to the book helper server
                 buffer = new byte[1000];
                 b = serverSocket.Receive(buffer);
+                Console.WriteLine("Book inquiry received, asking book from book helper");
                 bookSocket.Send(buffer);
                 //Send the message received from the book server to the client
                 buffer = new byte[1000];
                 b = bookSocket.Receive(buffer);
+                Console.WriteLine("Reply from book helper received, sending it to the client");
                 serverSocket.Send(buffer);
                 Message bookinquiryreply = BytesToMessage(buffer);
 
                 //stop and go to the next loop if the book is not found or the book is available. otherwise wait for the userinquiry
                 if (bookinquiryreply.Type == MessageType.NotFound || bookinquiryreply.Type == MessageType.Error)
                 {
+                    Console.WriteLine("Book was not found/an error was found");
                     continue;
                 }
                 BookData myBook = JsonSerializer.Deserialize<BookData>(bookinquiryreply.Content);
@@ -194,7 +199,11 @@ namespace LibServer
             var msg = new Message();
             string fullstring = Encoding.ASCII.GetString(bytes);
             string[] subs = fullstring.Split("|");
-            string content = subs[1];
+            string content = "";
+            if (subs.Length != 1){
+                content = subs[1];
+            }
+            
             string type = subs[0];
             msg.Content = content;
             switch (type)
