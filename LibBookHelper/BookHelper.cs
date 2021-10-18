@@ -73,13 +73,43 @@ namespace BookHelper
                 Console.WriteLine("Waiting for messages from the client...");
                 bookSocket.Receive(buffer);
                 var received = BytesToMessage(buffer);
+
+                //EndCommunication message will close the socket and break the loop
                 if(received.Type == MessageType.EndCommunication){
+                    Console.WriteLine("End Communication message received");
                     Console.WriteLine("Closing the socket...");
                     bookSocket.Close();
                     break;
                 } else if(received.Type == MessageType.BookInquiry){
                     Console.WriteLine("Book Inquiry received!");
+                    string title = received.Content;
 
+                    //Look through all the books for a matching title
+                    BookData myBook = null;
+                    foreach(BookData book in books){
+                        if (book.Title == title){
+                            myBook = book;
+                        }
+                    }
+                    if (myBook == null){
+                        //if the book wasnt found, myBook will be null, NotFound message will be sent
+                        Console.WriteLine("Book was not found, sending back Not Found message");
+                        var reply = new Message();
+                        reply.Type = MessageType.NotFound;
+                        reply.Content = "";
+                        msg = messageToBytes(reply);
+                        bookSocket.Send(msg);
+                    } else {
+                        //if the book was found, send back the book information
+                        Console.WriteLine("Book was found! Sending back the book data");
+                        string bookstring = JsonSerializer.Serialize<BookData>(myBook);
+                        var bookinquiryreply = new Message();
+                        bookinquiryreply.Type = MessageType.BookInquiryReply;
+                        bookinquiryreply.Content = bookstring;
+                        msg = messageToBytes(bookinquiryreply);
+                        bookSocket.Send(msg);
+                    }
+                    
                 }
             }
         }
