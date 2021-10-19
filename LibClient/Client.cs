@@ -95,12 +95,15 @@ namespace LibClient
 
             //if this is client -1, send endcommunication message and close the socket.
             if (client_id == "Client -1"){
+                Console.WriteLine("Sending EndCommunication message...");
                 var endcomm = new Message();
                 endcomm.Type = MessageType.EndCommunication;
                 endcomm.Content = "";
                 msg = messageToBytes(endcomm);
                 clientSocket.Send(msg);
+                Console.WriteLine("Closing Sockets...");
                 clientSocket.Close();
+                Console.WriteLine("Done.");
                 return result;
             }
 
@@ -141,12 +144,14 @@ namespace LibClient
             var bookinquiryreply = BytesToMessage(buffer);
             if (bookinquiryreply.Type == MessageType.NotFound)
             {
+                Console.WriteLine("Book was not found");
                 result.Status = "BookNotFound";
                 result.BorrowerEmail = null;
                 result.BorrowerName = null;
                 return result;
             } else if (bookinquiryreply.Type == MessageType.Error)
             {
+                Console.WriteLine(bookinquiryreply.Content);
                 result.Status = bookinquiryreply.Content;
                 result.BorrowerEmail = null;
                 result.BorrowerName = null;
@@ -160,6 +165,7 @@ namespace LibClient
             //if the book is available, status will be "Available", borrower information will be null
             if (myBook.Status == "Available")
             {
+                Console.WriteLine("Book was found and is available");
                 result.Status = "Available";
                 result.BorrowerEmail = null;
                 result.BorrowerName = null;
@@ -191,6 +197,7 @@ namespace LibClient
                 UserData myUser = JsonSerializer.Deserialize<UserData>(jsonstring);
 
                 //build output
+                Console.WriteLine("Book was borrowed by " + myUser.Name);
                 result.BorrowerName = myUser.Name;
                 result.BorrowerEmail = myUser.Email;
                 result.Status = "Borrowed";
