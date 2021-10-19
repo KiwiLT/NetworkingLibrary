@@ -81,13 +81,16 @@ namespace UserHelper
                     Console.WriteLine("User inquiry Received!");
                     string user_id = received.Content;
                     UserData myUser = null;
+                    Console.WriteLine("Searching for user with id " + user_id);
                     foreach(UserData user in users){
                         if(user.User_id == user_id){
                             myUser = user;
+                            Console.WriteLine("Found! Sending back user information of " + myUser.Name);
                         }
                     }
 
                     if (myUser == null){
+                        Console.WriteLine("User was not found. Sending back Not Found message");
                         var reply = new Message();
                         reply.Type = MessageType.NotFound;
                         reply.Content = null;
