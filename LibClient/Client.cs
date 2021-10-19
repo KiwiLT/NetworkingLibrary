@@ -137,6 +137,7 @@ namespace LibClient
             //the client will wait unitl he receives the status of the book
             buffer = new byte[1000];
             b = clientSocket.Receive(buffer);
+            Console.WriteLine("Book Inquiry Reply received");
             var bookinquiryreply = BytesToMessage(buffer);
             if (bookinquiryreply.Type == MessageType.NotFound)
             {
@@ -171,7 +172,7 @@ namespace LibClient
                 userinquiry.Content = myBook.BorrowedBy;
                 msg = messageToBytes(userinquiry);
                 clientSocket.Send(msg);
-                buffer = null;
+                buffer = new byte[1000];
                 b = clientSocket.Receive(buffer);
                 var userinquiryreply = BytesToMessage(buffer);
                 if (userinquiryreply.Type == MessageType.Error){
@@ -209,40 +210,39 @@ namespace LibClient
             switch (msg.Type)
             {
                 case (MessageType.Hello):
-                    return "Hello" + "|" + msg.Content;
+                    return "Hello" + "|" + msg.Content + ";";
                 case (MessageType.Welcome):
-                    return "Welcome" + "|" + msg.Content;
+                    return "Welcome" + "|" + msg.Content + ";";
                 case (MessageType.BookInquiry):
-                    return "BookInquiry" + "|" + msg.Content;
+                    return "BookInquiry" + "|" + msg.Content + ";";
                 case (MessageType.UserInquiry):
-                    return "UserInquiry" + "|" + msg.Content;
+                    return "UserInquiry" + "|" + msg.Content + ";";
                 case (MessageType.BookInquiryReply):
-                    return "BookInquiryReply" + "|" + msg.Content;
+                    return "BookInquiryReply" + "|" + msg.Content + ";";
                 case (MessageType.UserInquiryReply):
-                    return "UserInquiryReply" + "|" + msg.Content;
+                    return "UserInquiryReply" + "|" + msg.Content + ";";
                 case (MessageType.EndCommunication):
-                    return "EndCommunication" + "|" + msg.Content;
+                    return "EndCommunication" + "|" + msg.Content + ";";
                 case (MessageType.Error):
-                    return "Error" + "|" + msg.Content;
+                    return "Error" + "|" + msg.Content + ";";
                 case (MessageType.NotFound):
-                    return "NotFound" + "|" + msg.Content;
+                    return "NotFound" + "|" + msg.Content + ";";
                 default:
                     return "";
             }
-
-
         }
 
         public Message BytesToMessage(byte[] bytes)
         {
             var msg = new Message();
             string fullstring = Encoding.ASCII.GetString(bytes);
+            fullstring = fullstring.Substring(0, fullstring.IndexOf(";"));
             string[] subs = fullstring.Split("|");
+            string type = subs[0];
             string content = "";
             if (subs.Length != 1){
                 content = subs[1];
             }
-            string type = subs[0];
             msg.Content = content;
             switch (type)
             {

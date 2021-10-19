@@ -142,6 +142,9 @@ namespace LibServer
                     Console.WriteLine("Book was not found/an error was found");
                     continue;
                 }
+                string a = bookinquiryreply.Content;
+                Console.WriteLine(a);
+                Console.WriteLine(a.Length);
                 BookData myBook = JsonSerializer.Deserialize<BookData>(bookinquiryreply.Content);
                 if (myBook.Status == "Available")
                 {
@@ -170,41 +173,39 @@ namespace LibServer
             switch (msg.Type)
             {
                 case (MessageType.Hello):
-                    return "Hello" + "|" + msg.Content;
+                    return "Hello" + "|" + msg.Content + ";";
                 case (MessageType.Welcome):
-                    return "Welcome" + "|" + msg.Content;
+                    return "Welcome" + "|" + msg.Content + ";";
                 case (MessageType.BookInquiry):
-                    return "BookInquiry" + "|" + msg.Content;
+                    return "BookInquiry" + "|" + msg.Content + ";";
                 case (MessageType.UserInquiry):
-                    return "UserInquiry" + "|" + msg.Content;
+                    return "UserInquiry" + "|" + msg.Content + ";";
                 case (MessageType.BookInquiryReply):
-                    return "BookInquiryReply" + "|" + msg.Content;
+                    return "BookInquiryReply" + "|" + msg.Content + ";";
                 case (MessageType.UserInquiryReply):
-                    return "UserInquiryReply" + "|" + msg.Content;
+                    return "UserInquiryReply" + "|" + msg.Content + ";";
                 case (MessageType.EndCommunication):
-                    return "EndCommunication" + "|" + msg.Content;
+                    return "EndCommunication" + "|" + msg.Content + ";";
                 case (MessageType.Error):
-                    return "Error" + "|" + msg.Content;
+                    return "Error" + "|" + msg.Content + ";";
                 case (MessageType.NotFound):
-                    return "NotFound" + "|" + msg.Content;
+                    return "NotFound" + "|" + msg.Content + ";";
                 default:
                     return "";
             }
-
-
         }
 
         public Message BytesToMessage(byte[] bytes)
         {
             var msg = new Message();
             string fullstring = Encoding.ASCII.GetString(bytes);
+            fullstring = fullstring.Substring(0, fullstring.IndexOf(";"));
             string[] subs = fullstring.Split("|");
+            string type = subs[0];
             string content = "";
             if (subs.Length != 1){
                 content = subs[1];
             }
-            
-            string type = subs[0];
             msg.Content = content;
             switch (type)
             {
@@ -230,8 +231,4 @@ namespace LibServer
             return msg;
         }
     }
-
 }
-
-
-
