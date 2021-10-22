@@ -5,5 +5,6 @@
     "ServerIPAddress": "127.0.0.1",
     "BookHelperIPAddress": "127.0.0.1",
     "UserHelperIPAddress": "127.0.0.1",
-    "ServerListeningQueue": 5
+    "ServerListeningQueue": 5,
+    "Comment": "Liang Tong Jonker 1018958, Nisa Tutucu 0999289"
 }
