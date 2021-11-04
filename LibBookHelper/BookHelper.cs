@@ -64,7 +64,6 @@ namespace BookHelper
             listeningSocket.Listen(Queue);
             bookSocket = listeningSocket.Accept();
             Console.WriteLine("Connected!");
-            int i = 0;
             while (true)
             {
                 var msg = new byte[1000];
@@ -105,10 +104,6 @@ namespace BookHelper
                         msg = messageToBytes(bookinquiryreply);
                         bookSocket.Send(msg);
                     }
-                }
-                i++;
-                if (i > 10){
-                    break;
                 }
             }
         }

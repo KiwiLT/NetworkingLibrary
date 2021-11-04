@@ -113,6 +113,8 @@ namespace LibServer
                     error.Content = "Error: didnt receive hello message";
                     msg = messageToBytes(error);
                     serverSocket.Send(msg);
+                    Console.WriteLine("Closing Connection...");
+                    serverSocket.Close();
                     continue;
                 }
                 Console.WriteLine(hello.Content + " says hello. Sending back 'Welcome'.");
@@ -140,6 +142,8 @@ namespace LibServer
                 if (bookinquiryreply.Type == MessageType.NotFound || bookinquiryreply.Type == MessageType.Error)
                 {
                     Console.WriteLine("Book was not found/an error was found");
+                    Console.WriteLine("Closing Connection...");
+                    serverSocket.Close();
                     continue;
                 }
                 string a = bookinquiryreply.Content;
@@ -149,13 +153,21 @@ namespace LibServer
                 if (myBook.Status == "Available")
                 {
                     Console.WriteLine("Book is available! No need to ask for an user.");
+                    Console.WriteLine("Closing Connection...");
+                    serverSocket.Close();
                     continue;
                 }
-
+                //Receive user inquiry and send to user helper
                 b = serverSocket.Receive(buffer);
                 userSocket.Send(buffer);
+
+                //Receive user inquiry reply and send to client
                 b = userSocket.Receive(buffer);
                 serverSocket.Send(buffer);
+
+                //Close socket connection with client
+                Console.WriteLine("Closing Connection...");
+                serverSocket.Close();
             }
 
         }

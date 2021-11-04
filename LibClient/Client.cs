@@ -148,6 +148,7 @@ namespace LibClient
                 result.Status = "BookNotFound";
                 result.BorrowerEmail = null;
                 result.BorrowerName = null;
+                clientSocket.Close();
                 return result;
             } else if (bookinquiryreply.Type == MessageType.Error)
             {
@@ -155,6 +156,7 @@ namespace LibClient
                 result.Status = bookinquiryreply.Content;
                 result.BorrowerEmail = null;
                 result.BorrowerName = null;
+                clientSocket.Close();
                 return result;
             }
             //change content of the message from jsonstring to an BookData object
@@ -169,6 +171,7 @@ namespace LibClient
                 result.Status = "Available";
                 result.BorrowerEmail = null;
                 result.BorrowerName = null;
+                clientSocket.Close();
                 return result;
             //if the book is borrowed, the client will request the user information, using the user_id in the status of myBook
             } else 
@@ -185,12 +188,14 @@ namespace LibClient
                     result.Status = userinquiryreply.Content;
                     result.BorrowerEmail = null;
                     result.BorrowerName = null;
+                    clientSocket.Close();
                     return result;
                 }
                 if (userinquiryreply.Type == MessageType.NotFound){
                     result.Status = "Borrowed";
                     result.BorrowerEmail = null;
                     result.BorrowerName = "NotFound";
+                    clientSocket.Close();
                     return result;
                 }
                 jsonstring = userinquiryreply.Content;
@@ -201,6 +206,7 @@ namespace LibClient
                 result.BorrowerName = myUser.Name;
                 result.BorrowerEmail = myUser.Email;
                 result.Status = "Borrowed";
+                clientSocket.Close();
                 return result;
             }
         }

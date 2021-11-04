@@ -62,7 +62,6 @@ namespace UserHelper
             listeningSocket.Listen(Queue);
             userSocket = listeningSocket.Accept();
             Console.WriteLine("Connected!");
-            int i = 0;
             while(true)
             {
                 var msg = new byte[1000];
@@ -102,10 +101,6 @@ namespace UserHelper
                         msg = messageToBytes(userinquiryreply);
                         userSocket.Send(msg);
                     }
-                }
-                i++;
-                if (i > 10){
-                    break;
                 }
             }
         }
