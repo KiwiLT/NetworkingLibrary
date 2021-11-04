@@ -58,9 +58,9 @@
     {
         "Title": "Harry Potter",
         "Author": "Rowling, J.K.",
-        "Status": "Available",
-        "BorrowedBy": null,
-        "ReturnDate": null
+        "Status": "Borrowed",
+        "BorrowedBy": "user-12",
+        "ReturnDate": "20-03-2021"
     },
     {
         "Title": "One Hundred Years of Solitude",

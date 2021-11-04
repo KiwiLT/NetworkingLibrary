@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "/Users/liangtongjonker/.nuget/packages/": {}
+    "/Users/nisatutucu/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/LibClient.csproj",
+      "projectUniqueName": "/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibClient/LibClient.csproj",
       "projectName": "LibClient",
-      "projectPath": "/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/LibClient.csproj",
-      "packagesPath": "/Users/liangtongjonker/.nuget/packages/",
-      "outputPath": "/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibClient/obj/",
+      "projectPath": "/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibClient/LibClient.csproj",
+      "packagesPath": "/Users/nisatutucu/.nuget/packages/",
+      "outputPath": "/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibClient/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/liangtongjonker/.nuget/NuGet/NuGet.Config"
+        "/Users/nisatutucu/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"

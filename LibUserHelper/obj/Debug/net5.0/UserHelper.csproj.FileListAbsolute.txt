@@ -1,0 +1,15 @@
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/bin/Debug/net5.0/UserHelper.deps.json
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/bin/Debug/net5.0/UserHelper.runtimeconfig.json
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/bin/Debug/net5.0/UserHelper.runtimeconfig.dev.json
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/bin/Debug/net5.0/UserHelper.dll
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/bin/Debug/net5.0/ref/UserHelper.dll
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/bin/Debug/net5.0/UserHelper.pdb
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/obj/Debug/net5.0/UserHelper.csproj.AssemblyReference.cache
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/obj/Debug/net5.0/UserHelper.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/obj/Debug/net5.0/UserHelper.AssemblyInfoInputs.cache
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/obj/Debug/net5.0/UserHelper.AssemblyInfo.cs
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/obj/Debug/net5.0/UserHelper.csproj.CoreCompileInputs.cache
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/obj/Debug/net5.0/UserHelper.dll
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/obj/Debug/net5.0/ref/UserHelper.dll
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/obj/Debug/net5.0/UserHelper.pdb
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibUserHelper/obj/Debug/net5.0/UserHelper.genruntimeconfig.cache

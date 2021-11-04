@@ -1,0 +1,15 @@
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/bin/Debug/net5.0/BookHelper.deps.json
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/bin/Debug/net5.0/BookHelper.runtimeconfig.json
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/bin/Debug/net5.0/BookHelper.runtimeconfig.dev.json
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/bin/Debug/net5.0/BookHelper.dll
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/bin/Debug/net5.0/ref/BookHelper.dll
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/bin/Debug/net5.0/BookHelper.pdb
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/obj/Debug/net5.0/BookHelper.csproj.AssemblyReference.cache
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/obj/Debug/net5.0/BookHelper.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/obj/Debug/net5.0/BookHelper.AssemblyInfoInputs.cache
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/obj/Debug/net5.0/BookHelper.AssemblyInfo.cs
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/obj/Debug/net5.0/BookHelper.csproj.CoreCompileInputs.cache
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/obj/Debug/net5.0/BookHelper.dll
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/obj/Debug/net5.0/ref/BookHelper.dll
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/obj/Debug/net5.0/BookHelper.pdb
+/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibBookHelper/obj/Debug/net5.0/BookHelper.genruntimeconfig.cache

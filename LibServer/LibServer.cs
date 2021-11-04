@@ -64,7 +64,7 @@ namespace LibServer
         }
 
         public void start()
-        {   
+        {
             byte[] buffer = new byte[1000];
             byte[] msg = new byte[1000];
             int b;
@@ -146,6 +146,7 @@ namespace LibServer
                     serverSocket.Close();
                     continue;
                 }
+                dd
                 string a = bookinquiryreply.Content;
                 Console.WriteLine(a);
                 Console.WriteLine(a.Length);
@@ -174,7 +175,7 @@ namespace LibServer
 
 
 
-//helper functions
+        //helper functions
         public byte[] messageToBytes(Message msg)
         {
             return Encoding.ASCII.GetBytes(messageToString(msg));
@@ -215,7 +216,8 @@ namespace LibServer
             string[] subs = fullstring.Split("|");
             string type = subs[0];
             string content = "";
-            if (subs.Length != 1){
+            if (subs.Length != 1)
+            {
                 content = subs[1];
             }
             msg.Content = content;
@@ -223,21 +225,21 @@ namespace LibServer
             {
                 case ("Hello"):
                     msg.Type = MessageType.Hello; break;
-                case("Welcome"):
+                case ("Welcome"):
                     msg.Type = MessageType.Welcome; break;
-                case("BookInquiry"):
+                case ("BookInquiry"):
                     msg.Type = MessageType.BookInquiry; break;
-                case("UserInquiry"):
+                case ("UserInquiry"):
                     msg.Type = MessageType.UserInquiry; break;
-                case("BookInquiryReply"):
+                case ("BookInquiryReply"):
                     msg.Type = MessageType.BookInquiryReply; break;
-                case("UserInquiryReply"):
+                case ("UserInquiryReply"):
                     msg.Type = MessageType.UserInquiryReply; break;
-                case("EndCommunication"):
+                case ("EndCommunication"):
                     msg.Type = MessageType.EndCommunication; break;
-                case("Error"):
+                case ("Error"):
                     msg.Type = MessageType.Error; break;
-                case("NotFound"):
+                case ("NotFound"):
                     msg.Type = MessageType.NotFound; break;
             }
             return msg;

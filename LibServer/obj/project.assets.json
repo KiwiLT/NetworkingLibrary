@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "/Users/liangtongjonker/.nuget/packages/": {}
+    "/Users/nisatutucu/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/LibServer.csproj",
+      "projectUniqueName": "/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibServer/LibServer.csproj",
       "projectName": "LibServer",
-      "projectPath": "/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/LibServer.csproj",
-      "packagesPath": "/Users/liangtongjonker/.nuget/packages/",
-      "outputPath": "/Users/liangtongjonker/Desktop/Informatica/Analysis/Networking/LibraryExercise/LibServer/obj/",
+      "projectPath": "/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibServer/LibServer.csproj",
+      "packagesPath": "/Users/nisatutucu/.nuget/packages/",
+      "outputPath": "/Users/nisatutucu/Documents/GitHub/NetworkingLibrary/LibServer/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/liangtongjonker/.nuget/NuGet/NuGet.Config"
+        "/Users/nisatutucu/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
