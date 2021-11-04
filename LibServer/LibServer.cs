@@ -146,7 +146,7 @@ namespace LibServer
                     serverSocket.Close();
                     continue;
                 }
-                dd
+
                 string a = bookinquiryreply.Content;
                 Console.WriteLine(a);
                 Console.WriteLine(a.Length);
